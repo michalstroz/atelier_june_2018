@@ -14,8 +14,7 @@ class ReservationsHandler
   end
 
   def take
-    return unless book.can_take?(user)
-
+    return "Book can not be taken at the moment" unless book.can_take?(user)
     if book.available_reservation.present?
       book.available_reservation.update_attributes(status: 'TAKEN')
     else
