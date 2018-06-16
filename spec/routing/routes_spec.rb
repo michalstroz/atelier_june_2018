@@ -53,4 +53,68 @@ describe 'AppRouting' do
     )
   }
 
+  it {
+    expect(get: books_path).to route_to(
+      controller: 'books',
+      action: 'index'
+    )
+  }
+
+  it {
+    expect(get: new_book_path(id: 14)).to route_to(
+      controller: 'books',
+      action: 'new',
+      id: '14'
+    )
+  }
+
+  it {
+    expect(post: books_path(id: 14)).to route_to(
+      controller: 'books',
+      action: 'create',
+      id: '14'
+    )
+  }
+
+  it {
+    expect(get: book_path(id: 12)).to route_to(
+      controller: 'books',
+      action: 'show',
+      id: '12'
+    )
+  }
+
+  it {
+    expect(get: edit_book_path(id: 12)).to route_to(
+      controller: 'books',
+      action: 'edit',
+      id: '12'
+    )
+  }
+
+  it {
+    expect(patch: book_path(id: 12)).to route_to(
+      controller: 'books',
+      action: 'update',
+      id: '12'
+    )
+  }
+
+  it {
+    expect(put: book_path(id: 12)).to route_to(
+      controller: 'books',
+      action: 'update',
+      id: '12'
+    )
+  }
+
+  it {
+    expect(delete: book_path(id: 12)).to route_to(
+      controller: 'books',
+      action: 'destroy',
+      id: '12'
+    )
+  }
+
+
 end
