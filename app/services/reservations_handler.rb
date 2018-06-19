@@ -15,11 +15,13 @@ class ReservationsHandler
 
   def take
     return "Book can not be taken at the moment" unless book.can_take?(user)
+    BooksNotifierMailer.borrow_a_book(book, user).deliver_now
     if book.available_reservation.present?
       book.available_reservation.update_attributes(status: 'TAKEN')
     else
       book.reservations.create(user: user, status: 'TAKEN')
     end
+
   end
 
   def give_back

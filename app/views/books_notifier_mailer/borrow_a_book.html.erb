@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Cześć</h1>
+    <p>
+      Bardzo nam miło, że wypożyczyłeś naszą książkę.<br>
+      Żywimy nadzięję, że nasze usługi w pełni zaspokajają twoje konsumenckie potrzeby.
+    </p>
+    <p>
+      Poniżej umieściliśmy dane wypożyczonej przez ciebie książki:<br>
+      Tytuł: <%= @book.title %><br>
+      ISBN: <%= @book.isbn %><br>
+    </p>
+    <p>Jednocześnie informujemy, że ostateczny termin zwrotu wypożyczonej przez Ciebie książki to:<br>
+      <%= @deadline %>
+    </p>
+    <p>Dziękujemy za skorzystanie z naszych usług i życzymy Tobie miłego dnia.</p>
+  </body>
+</html>
