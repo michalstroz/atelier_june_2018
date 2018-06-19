@@ -21,6 +21,7 @@ gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13'
+  gem 'pry'
   gem 'selenium-webdriver'
   gem 'rspec-rails', '~> 3.6'
   gem 'factory_girl_rails'
