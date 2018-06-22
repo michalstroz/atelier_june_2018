@@ -25,7 +25,6 @@ class BooksNotifierMailer < ApplicationMailer
 
     return if @reservation.blank? || @reserver.blank?
 
-      mail(to: @reserver.email, subject: "Już niedługo będziesz mógł wypożyczyć książkę #{@book.title}")
-    end
+    mail(to: @reserver.email, subject: "Już niedługo będziesz mógł wypożyczyć książkę #{@book.title}")
   end
 end
