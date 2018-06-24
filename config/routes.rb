@@ -14,4 +14,8 @@
 
   get 'api/v1/books/lookup', to: 'api/v1/books#lookup'
   resources :books
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+  
 end

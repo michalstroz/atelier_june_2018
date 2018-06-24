@@ -17,11 +17,16 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
 gem 'httparty'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
+gem 'sidekiq'
+gem 'whenever', require: false
+gem 'rufus-scheduler'
+
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13'
   gem 'pry'
+  gem "letter_opener"
   gem 'selenium-webdriver'
   gem 'rspec-rails', '~> 3.6'
   gem 'factory_girl_rails'
