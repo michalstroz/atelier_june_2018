@@ -27,4 +27,13 @@ class BooksNotifierMailer < ApplicationMailer
 
     mail(to: @reserver.email, subject: "Już niedługo będziesz mógł wypożyczyć książkę #{@book.title}")
   end
+
+  def book_available_earlier(book)
+    @book = book
+    @reserver = @book.reservations.where(status: "RESERVED").first.try(:user)
+
+    return if @reserver.blank?
+
+    mail(to: @reserver.email, subject: "Dobra wiadomość. Twoja zarezerwowana książka została zwrócona przed czasem.")
+  end
 end

@@ -19,6 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.minute do
+every '* * * * *' do
   rake 'mail_sending:sending_mails_before', environment: 'development'
 end

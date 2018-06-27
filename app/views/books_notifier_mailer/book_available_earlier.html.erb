@@ -1,0 +1,4 @@
+Hej <%= @reserver.email %>
+
+Książka <%= @book.title %>, którą zarezerwowałeś została oddana przed czasem.
+<%= link_to "Przejdź do książki", book_url(@book.id, host: "localhost:3000") %>
