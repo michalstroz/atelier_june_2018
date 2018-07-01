@@ -33,7 +33,12 @@ class Book < ApplicationRecord
     reservations.where(status: 'RESERVED').order(created_at: :asc).first
   end
 
+
+
+
   private
+
+
 
   def not_taken?
     reservations.find_by(status: 'TAKEN').nil?
