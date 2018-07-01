@@ -20,6 +20,8 @@ gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'sidekiq'
 gem 'whenever', require: false
 gem 'rufus-scheduler'
+gem 'omniauth-google-oauth2'
+gem 'a9n'
 
 
 group :development, :test do
