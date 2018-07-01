@@ -1,0 +1,3 @@
+defaults:
+  google_client_id: '__twoje_client_id__'
+  google_client_secret: '__twoj_client_secret__'
