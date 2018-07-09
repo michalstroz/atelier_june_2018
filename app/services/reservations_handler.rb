@@ -22,6 +22,7 @@ class ReservationsHandler
       # book.reservations.create(user: user, status: 'TAKEN')
       perform_expiration_worker(book.reservations.create(user: user, status: 'TAKEN'))
     end
+    notify_user_calendar
     BooksNotifierMailer.borrow_a_book(book, user).deliver_now
 
   end
@@ -29,6 +30,7 @@ class ReservationsHandler
   def give_back
      ActiveRecord::Base.transaction do
        book.reservations.find_by(status: 'TAKEN').update_attributes(status: 'RETURNED')
+       notify_user_calendar
        book.next_in_queue.update_attributes(status: 'AVAILABLE') if book.next_in_queue.present?
      end
   end
@@ -39,5 +41,13 @@ class ReservationsHandler
 
   def perform_expiration_worker(res)
     ::BookReservationExpireWorker.perform_at(res.expires_at-1.day, res.book_id)
+  end
+
+  def notify_user_calendar
+    UserCalendarNotifier.new(user).perform(provide_reservation)
+  end
+
+  def provide_reservation
+    book.reservations.where(user: user).last
   end
 end
