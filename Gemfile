@@ -22,6 +22,7 @@ gem 'whenever', require: false
 gem 'rufus-scheduler'
 gem 'omniauth-google-oauth2'
 gem 'a9n'
+gem 'google-api-client', '0.8.2', require: 'google/api_client'
 
 
 group :development, :test do
