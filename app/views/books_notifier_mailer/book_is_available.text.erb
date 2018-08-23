@@ -1,0 +1,3 @@
+Hej <%= @reserver.email %>
+Książka <%= @book.title %>, którą zarezerwowałeś w systemie, została oddana wcześniej. Możesz ją wypożyczyć.
+<%= link_to "Przejdź do książki", book_url(@book.id, host: "localhost:3000") %>
