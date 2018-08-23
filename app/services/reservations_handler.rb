@@ -16,15 +16,14 @@ class ReservationsHandler
   def take
     return "Book can not be taken at the moment" unless book.can_take?(user)
     if book.available_reservation.present?
-      perform_expiration_worker(book.available_reservation)
+      # perform_expiration_worker(book.available_reservation)
       book.available_reservation.update_attributes(status: 'TAKEN')
     else
-      # book.reservations.create(user: user, status: 'TAKEN')
-      perform_expiration_worker(book.reservations.create(user: user, status: 'TAKEN'))
+      book.reservations.create(user: user, status: 'TAKEN')
+      # perform_expiration_worker(book.reservations.create(user: user, status: 'TAKEN'))
     end
     notify_user_calendar
     BooksNotifierMailer.borrow_a_book(book, user).deliver_now
-
   end
 
   def give_back
@@ -32,6 +31,7 @@ class ReservationsHandler
        book.reservations.find_by(status: 'TAKEN').update_attributes(status: 'RETURNED')
        notify_user_calendar
        book.next_in_queue.update_attributes(status: 'AVAILABLE') if book.next_in_queue.present?
+       BooksNotifierMailer.book_is_available(book).deliver_now
      end
   end
 
@@ -39,9 +39,10 @@ class ReservationsHandler
 
   attr_reader :user, :book
 
-  def perform_expiration_worker(res)
-    ::BookReservationExpireWorker.perform_at(res.expires_at-1.day, res.book_id)
-  end
+  # def perform_expiration_worker(res)
+  #  # ::BookReservationExpireWorker.perform_at(res.expires_at-1.day, res.book_id)
+  #   BookReservationExpireJobJob.set(wait_until: res.expires_at-1.day).perform_later(res.book)
+  # end
 
   def notify_user_calendar
     UserCalendarNotifier.new(user).perform(provide_reservation)
