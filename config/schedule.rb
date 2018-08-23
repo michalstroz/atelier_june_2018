@@ -19,6 +19,17 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.minute do
-  rake 'mail_sending:sending_mails_before', environment: 'development'
+env :PATH, ENV['PATH']
+
+job_type :rbenv_rake, %Q{export PATH=/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:/usr/bin:$PATH; eval "$(rbenv init -)"; \
+                         cd :path && :environment_variable=:environment :bundle_command rake :task --silent :output }
+
+job_type :rbenv_runner, %Q{export PATH=/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:/usr/bin:$PATH; eval "$(rbenv init -)"; \
+                         cd :path && :bundle_command :runner_command -e :environment ':task' :output }
+
+# set :output, "/home/michal/cron_log.log"
+
+
+every '1 0 * * *' do
+  rbenv_rake 'mail_sending:sending_mails_before', environment: 'development'
 end
