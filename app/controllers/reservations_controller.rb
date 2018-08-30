@@ -9,10 +9,13 @@ class ReservationsController < ApplicationController
   def take
     reservation_handler.take
     redirect_to(book_path(book.id))
+    reservation_handler.notify_user_calendar
+    reservation_handler.borrow_a_book
   end
 
   def give_back
     reservation_handler.give_back
+
     redirect_to(book_path(book.id))
   end
 

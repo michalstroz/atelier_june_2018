@@ -22,8 +22,8 @@ class ReservationsHandler
       book.reservations.create(user: user, status: 'TAKEN')
       # perform_expiration_worker(book.reservations.create(user: user, status: 'TAKEN'))
     end
-    notify_user_calendar
-    BooksNotifierMailer.borrow_a_book(book, user).deliver_now
+    # notify_user_calendar
+    # BooksNotifierMailer.borrow_a_book(book, user).deliver_now
   end
 
   def give_back
@@ -35,6 +35,14 @@ class ReservationsHandler
      end
   end
 
+  def notify_user_calendar
+    UserCalendarNotifier.new(user).perform(provide_reservation)
+  end
+
+  def borrow_a_book
+    BooksNotifierMailer.borrow_a_book(book, user).deliver_now
+  end
+
   private
 
   attr_reader :user, :book
@@ -44,9 +52,7 @@ class ReservationsHandler
   #   BookReservationExpireJobJob.set(wait_until: res.expires_at-1.day).perform_later(res.book)
   # end
 
-  def notify_user_calendar
-    UserCalendarNotifier.new(user).perform(provide_reservation)
-  end
+
 
   def provide_reservation
     book.reservations.where(user: user).last
