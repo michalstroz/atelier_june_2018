@@ -68,7 +68,7 @@ RSpec.describe ReservationsHandler, type: :service do
         }
       end
 
-      context 'reservation happened' do
+      context 'reservation has happened' do
         let(:book_was_not_taken) { false }
 
         before{
