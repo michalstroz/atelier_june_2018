@@ -31,7 +31,7 @@ class ReservationsHandler
        book.reservations.find_by(status: 'TAKEN').update_attributes(status: 'RETURNED')
        notify_user_calendar
        book.next_in_queue.update_attributes(status: 'AVAILABLE') if book.next_in_queue.present?
-       BooksNotifierMailer.book_is_available(book).deliver_now
+       book_is_available_mailer
      end
   end
 
@@ -40,7 +40,12 @@ class ReservationsHandler
   end
 
   def borrow_a_book
-    BooksNotifierMailer.borrow_a_book(book, user).deliver_now
+    # BooksNotifierMailer.borrow_a_book(book, user).deliver_now
+    BorrowBookMailerJob.perform_later(book, user)
+  end
+
+  def book_is_available_mailer
+    SendAvailableBookMailerJob.perform_later(book)
   end
 
   private
