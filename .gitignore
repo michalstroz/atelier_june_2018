@@ -45,5 +45,4 @@ bower.json
 .byebug_history
 
 # Ignore configuration.yml content
-
 configuration.yml
