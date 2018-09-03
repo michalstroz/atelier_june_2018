@@ -36,7 +36,7 @@ class ReservationsHandler
   end
 
   def notify_user_calendar
-    UserCalendarNotifier.new(user).perform(provide_reservation)
+    UserCalendarNotifierWorker.perform_async(user.id, book.id)
   end
 
   def borrow_a_book
@@ -59,7 +59,7 @@ class ReservationsHandler
 
 
 
-  def provide_reservation
-    book.reservations.where(user: user).last
-  end
+  # def provide_reservation
+  #   book.reservations.where(user: user).last
+  # end
 end
