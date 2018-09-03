@@ -34,6 +34,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.6'
   gem 'factory_girl_rails'
   gem 'faker', git: 'git://github.com/stympy/faker.git', branch: 'master'
+  gem 'rspec-sidekiq'
 end
 
 group :development do
