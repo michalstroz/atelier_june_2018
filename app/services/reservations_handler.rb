@@ -36,7 +36,7 @@ class ReservationsHandler
   end
 
   def notify_user_calendar
-    UserCalendarNotifierWorker.perform_async(user.id, book.id)
+    UserCalendarNotifierWorker.perform_async(user.id, book.id) unless user.uid.nil?
   end
 
   def borrow_a_book
