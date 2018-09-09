@@ -3,3 +3,5 @@ defaults:
   google_client_secret: '__twoj_client_secret__'
   default_calendar: { summary: 'atelier' }
   app_host: 'http://localhost:3000'
+  fb_app_id: "__my_app_id__"
+  fb_app_secret: "__my_app_secret__"
