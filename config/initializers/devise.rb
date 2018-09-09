@@ -257,6 +257,8 @@ Devise.setup do |config|
     select_account: true,
     scope: "userinfo.email, calendar"
   }
+  config.omniauth :facebook, A9n.fb_app_id, A9n.fb_app_secret, token_params: { parse: :json }
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.
